@@ -1,0 +1,7 @@
+<!--pages/gold/gold.wxml-->
+<view class="container" >
+  <view class="video" bindtap="toVideo">
+    <image class="videoImg" src="../../images/video.png"></image>
+    <view class="videoText">观看视频每次奖励100金币</view>
+  </view>
+</view>

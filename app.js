@@ -7,40 +7,24 @@ App({
       env: "home-4gev7v2if54f1e14"
     })
 
-    //获取导航高度
-    // wx.getSystemInfo({
-    //   success: res => {
-    //     this.globalData.navHeight = res.statusBarHeight + 46;
-    //   },
-    //   fail(err) {
-    //     console.log(err);
-    //   }
-    // })
+    
     const userInfo = wx.getStorageSync('userInfo');
     if (userInfo) {
       this.globalData.userInfo = userInfo;
     }
 
-    //获取屏幕高度
-    // wx.getSystemInfo({
-    //   success(res) {
-    //     console.log(res)
-    //     that.globalData.screenHeight = res.screenHeight;
-    //     that.globalData.windowHeight = res.windowHeight;
-
-    //   }
-    // })
+    
   },
 
   // 添加用户
-  pushUserData(user) {
+  pushUserData(user,avatarUrl) {
     const db = wx.cloud.database()
     const that = this;
     db.collection('user').where({
         openId: user.openId,
       })
       .get().then(res => {
-        if (res.data.length == 0) {
+        if (res.data.length== 0) {
           db.collection('user').add({
             data: {
               openId: user.openId,
@@ -48,6 +32,9 @@ App({
               packet: 0,
               topic: 0
             }
+          }).then(()=>{
+            console.log(6666666666666)
+            that.getAvatarUrl(user,avatarUrl)
           })
         }
       })
@@ -79,7 +66,8 @@ App({
     let imgUrl = src.split(top);
     return 'https://686f-home-4gev7v2if54f1e14-1304885413.tcb.qcloud.la/' + imgUrl[1];
   },
-  getAvatarUrl(avatarUrl) {
+  getAvatarUrl(user,avatarUrl) {
+    const db = wx.cloud.database()
     const that = this;
     //获取图片信息
     wx.getImageInfo({
@@ -100,7 +88,12 @@ App({
 
           let imgUrl = that.transitionImg(e.fileID)
           console.log(imgUrl,8888888)
-         
+          db.collection('user').where({openId:user.openId}).update({
+            data: {
+              avatarUrl:imgUrl
+            },
+
+          })
         }).catch(error => {
           // handle error
         })
@@ -141,8 +134,7 @@ App({
         that.globalData.userInfo = e.detail.userInfo;
         callback()
         wx.setStorageSync('userInfo', e.detail.userInfo)
-        that.getAvatarUrl(e.detail.userInfo.avatarUrl)
-        that.pushUserData(res.result.event.userInfo)
+        that.pushUserData(res.result.event.userInfo,e.detail.userInfo.avatarUrl)
       }
     })
   },

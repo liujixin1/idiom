@@ -75,9 +75,9 @@ App({
   },
   //头像链接转换
   transitionImg(src) {
-    let top = 'cloud://home-520bf8.686f-home-520bf8-1255630290/';
+    let top = 'cloud://home-4gev7v2if54f1e14.686f-home-4gev7v2if54f1e14-1304885413/';
     let imgUrl = src.split(top);
-    return 'https://686f-home-520bf8-1255630290.tcb.qcloud.la/' + imgUrl[1];
+    return 'https://686f-home-4gev7v2if54f1e14-1304885413.tcb.qcloud.la/' + imgUrl[1];
   },
   getAvatarUrl(avatarUrl) {
     const that = this;
@@ -99,7 +99,7 @@ App({
         }).then(e => {
 
           let imgUrl = that.transitionImg(e.fileID)
-        
+          console.log(imgUrl,8888888)
          
         }).catch(error => {
           // handle error
@@ -141,6 +141,7 @@ App({
         that.globalData.userInfo = e.detail.userInfo;
         callback()
         wx.setStorageSync('userInfo', e.detail.userInfo)
+        that.getAvatarUrl(e.detail.userInfo.avatarUrl)
         that.pushUserData(res.result.event.userInfo)
       }
     })

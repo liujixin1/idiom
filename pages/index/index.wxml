@@ -1,0 +1,61 @@
+<!--pages/index/index.wxml-->
+<view class='container'>
+  <swiper class="swiper_container" vertical="true" autoplay="true" circular="true" interval="5000">
+
+    <block wx:for="{{swiperList}}" wx:key="*this">
+      <swiper-item>
+        <view class="swiper-item">
+          <image mode='aspectFill' class="swiperImg" src="{{item.img}}" />
+          <view class="swiperText">{{item.text}}</view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <image class="titleImg" src="../../images/title.png"></image>
+  <view class="center">
+    <view class="userinfo">
+      <view wx:if='{{!userInfo.openid}}' class="login">
+        <image class="headPortrait" src="../../images/headPortrait.png"></image>
+        <button hover-class="none" class="btn" open-type='getUserInfo' bindgetuserinfo="getUserInfo">登录</button>
+      </view>
+      <block wx:else>
+        <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data>
+        <open-data class="userinfo-nickname" type="userNickName"></open-data>
+      </block>
+    </view>
+    <view class="list">
+      <view class="item">
+        <view class='iconfont icon-gold'></view>
+        <view class="itemText">{{form.gold}} 金币</view>
+      </view>
+      <view class="item">
+        <view class='iconfont icon-glory'></view>
+        <view class="itemText">{{form.packet}} 元</view>
+      </view>
+      <view class="item">
+        <view class='iconfont icon-topic'></view>
+        <view class="itemText">{{form.topic}} 道题</view>
+      </view>
+    </view>
+  </view>
+  <view class="toBtn">开始猜成语</view>
+  <view class="footer">
+    <view class="footerItem">
+      <view class='iconfont icon-gold'></view>
+      <view class="itemText">免费金币</view>
+    </view>
+    <view class="footerItem">
+      <view class='iconfont icon-glory'></view>
+      <view class="itemText">红包兑换</view>
+    </view>
+    <view class="footerItem">
+      <view class='iconfont icon-seniority'></view>
+      <view class="itemText">排行榜</view>
+    </view>
+
+    <view class="footerItem">
+      <view class='iconfont icon-service'></view>
+      <view class="itemText">联系客服</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 2383456 */
+  src: url('//at.alicdn.com/t/font_2383456_petvg96y218.eot');
+  src: url('//at.alicdn.com/t/font_2383456_petvg96y218.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_2383456_petvg96y218.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_2383456_petvg96y218.woff') format('woff'),
+  url('//at.alicdn.com/t/font_2383456_petvg96y218.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_2383456_petvg96y218.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16rpx;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* 红包 */
+.icon-glory:before {
+  content: "\e646";
+}
+
+/* 金币 */
+.icon-gold:before {
+  content: "\e6df";
+}
+/* 题 */
+.icon-topic:before {
+  content: "\e673";
+}
+/* 排行 */
+.icon-seniority:before {
+  content: "\e661";
+}
+/* 客服 */
+.icon-service:before {
+  content: "\e6ab";
+}

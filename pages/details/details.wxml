@@ -1,0 +1,40 @@
+<!--pages/details/details.wxml-->
+<view class="container">
+  <swiper class="swiper" current='{{swiperIndex}}' circular="true" previous-margin='40rpx' next-margin='40rpx'
+    mode='aspectFill' bindchange='slide'>
+    <block wx:for='{{dataCenter}}' wx:key='index' wx:for-index='listItemIndex'>
+      <swiper-item catchtouchmove='catchTouchMove'>
+        <view class='swiperItem {{swiperIndex == listItemIndex?"active":""}}'>
+          <view class="title">
+            <image class="topImg" mode="aspectFill" src="{{item.titleImg}}"></image>
+            <!-- <view class="titleText">{{item.title}}</view> -->
+          </view>
+          <view class="titleText">
+            <block wx:for='{{item.title}}' wx:key='index' wx:for-item='items' wx:for-index='ItemIndex'>
+              <view class="titleTextITem">{{items}}</view>
+            </block>
+          </view>
+
+
+          <view class="list">
+            <block wx:for='{{item.textList}}' wx:key='index' wx:for-item='items' wx:for-index='ItemIndex'>
+              <view class="item" data-listindex='{{listItemIndex}}' data-bool='{{items.bool}}' bindtap="clickItem">
+                <view wx:if='{{dataCenter.textList[listItemIndex] == ItemIndex}}' class="bg">
+                  <view class='iconfont icon-picth'></view>
+                </view>
+                <view class="itemText">{{items.text}}</view>
+                <image mode="aspectFill" class="itemImg" src="../../images/textBg.png"></image>
+              </view>
+            </block>
+          </view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- <button wx:if='{{achieve}}' class="btn" open-type='getUserInfo' bindgetuserinfo="getUserInfo">提交</button> -->
+  <!-- <view wx:else class="footer">
+    <view>{{page}}</view>
+    <view></view>
+    <view>{{pageSize}}</view>
+  </view> -->
+</view>

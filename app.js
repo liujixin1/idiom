@@ -33,7 +33,6 @@ App({
               topic: 0
             }
           }).then(()=>{
-            console.log(6666666666666)
             that.getAvatarUrl(user,avatarUrl)
           })
         }
@@ -87,12 +86,10 @@ App({
         }).then(e => {
 
           let imgUrl = that.transitionImg(e.fileID)
-          console.log(imgUrl,8888888)
           db.collection('user').where({openId:user.openId}).update({
             data: {
               avatarUrl:imgUrl
             },
-
           })
         }).catch(error => {
           // handle error

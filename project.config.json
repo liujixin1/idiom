@@ -196,6 +196,19 @@
         {
           "name": "抽奖",
           "pathName": "pages/prize/prize",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/packet/packet",
+          "pathName": "pages/packet/packet",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/details/details",
+          "pathName": "pages/details/details",
+          "query": "",
           "scene": null
         }
       ]

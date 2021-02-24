@@ -178,4 +178,8 @@ swiper-item .swiperText{
 }
 .footer .footerItem:nth-child(4) .itemText{
   color:#67C23A;
+  margin-top: 21rpx;
+}
+.button-hover{
+  background:none;
 }

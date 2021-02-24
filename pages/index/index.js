@@ -54,6 +54,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     form: {
       appId: '',
+      openId:'',
       gold: 0,
       packet: 0,
       topic: 0,
@@ -61,14 +62,16 @@ Page({
   },
   //金币列表
   toGold(){
+    const that = this;
     wx.navigateTo({
-      url: `/pages/gold/gold`
+      url: `/pages/gold/gold?openId=${that.data.form.openId}`
     })
   },
   //红包列表
   toPacket(){
+    const that = this;
     wx.navigateTo({
-      url: ``
+      url: `/pages/packet/packet?openId=${that.data.form.openId}`
     })
   },
   getData(openId) {
@@ -99,21 +102,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (wx.createInterstitialAd) {
-      interstitialAd = wx.createInterstitialAd({
-        adUnitId: 'adunit-36d3c526fbab48cc'
-      })
-      interstitialAd.onLoad(() => {})
-      interstitialAd.onError((err) => {})
-      interstitialAd.onClose(() => {})
-    }
+    // if (wx.createInterstitialAd) {
+    //   interstitialAd = wx.createInterstitialAd({
+    //     adUnitId: 'adunit-36d3c526fbab48cc'
+    //   })
+    //   interstitialAd.onLoad(() => {})
+    //   interstitialAd.onError((err) => {})
+    //   interstitialAd.onClose(() => {})
+    // }
     
-    // 在适合的场景显示插屏广告
-    if (interstitialAd) {
-      interstitialAd.show().catch((err) => {
-        console.error(err)
-      })
-    }
+    // // 在适合的场景显示插屏广告
+    // if (interstitialAd) {
+    //   interstitialAd.show().catch((err) => {
+    //     console.error(err)
+    //   })
+    // }
   },
 
   /**

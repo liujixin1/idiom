@@ -3,8 +3,9 @@
     "pages/index/index",
     "pages/classify/classify",
     "pages/person/person",
-    "pages/detail/detail",
+    "pages/details/details",
     "pages/gold/gold",
+    "pages/packet/packet",
     "pages/login/login"
   ],
  

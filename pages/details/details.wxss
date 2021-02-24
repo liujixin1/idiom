@@ -1,0 +1,144 @@
+/* pages/details/details.wxss */
+
+page, .container {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translate(0,-50%);
+  background: #f8f8f8;
+}
+
+.swiper {
+  width: 100%;
+  height: 1100rpx;
+}
+
+.swiper .swiperItem {
+  width: 640rpx;
+  height: 920rpx;
+  background: #fff;
+  margin: 0 auto;
+  margin-top: 100rpx;
+  box-shadow: 0 10rpx 15rpx 0 rgba(0, 0, 0, 0.21);
+  border-radius: 10rpx;
+  transition: all 0.5s;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+.swiper .swiperItem.active {
+  height: 1000rpx;
+  margin-top: 50rpx;
+}
+.title{
+  position: relative;
+  width: 100%;
+}
+.topImg {
+  width: 100%;
+  height: 400rpx;
+  overflow: hidden;
+  display: block;
+}
+.titleText{
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  top: 150rpx;
+  font-weight: bold;
+  font-size: 40rpx;
+}
+.main{
+  position: relative;
+  z-index: 1000;
+}
+.list{
+  display: flex;
+  flex-wrap: wrap;
+  width: 610rpx;
+  margin: 0 auto;
+  margin-top: 40rpx;
+  justify-content: space-around;
+}
+.list .item{
+  width: 150rpx;
+  height: 150rpx;
+  position: relative;
+  margin-bottom: 30rpx;
+
+}
+.list .item .bg{
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.3)
+}
+.list .item .bg .icon-picth{
+  font-size: 60rpx;
+  color: #44b549;
+  text-align: center;
+  line-height: 200rpx;
+}
+.list .item .itemImg{
+  width: 150rpx;
+  height: 150rpx;
+}
+.list .item .itemText{
+ position: absolute;
+ top: 0;
+ left: 0;
+  background-size: 100% 100%;
+  width: 150rpx;
+  height: 150rpx;
+  text-align: center;
+  line-height: 150rpx;
+  font-size: 80rpx;
+}
+.btn{
+  width: 140rpx;
+  height: 70rpx;
+  text-align: center;
+  line-height: 70rpx;
+  margin: 0 auto;
+  border-radius:35rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background: #409EFF;
+  font-weight: bold;
+  box-shadow: 2rpx 2rpx 8rpx rgba(0,0,0,.3);
+}
+.footer {
+  position: relative;
+  width: 90rpx;
+  height: 90rpx;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.footer view:nth-child(1) {
+  font-size: 35rpx;
+  color: #222;
+  position: absolute;
+  right: 47rpx;
+}
+
+.footer view:nth-child(2) {
+  width: 1rpx;
+  height: 70rpx;
+  background: #666;
+  transform: rotate(30deg);
+  margin: 0 auto;
+  margin-top: 5rpx;
+}
+
+.footer view:nth-child(3) {
+  font-size: 35rpx;
+  color: #666;
+  position: absolute;
+  bottom: 0;
+  left: 47rpx;
+}

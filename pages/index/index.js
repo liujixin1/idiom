@@ -96,7 +96,12 @@ Page({
       });
     }
   },
-
+  toDetails(){
+    const that = this;
+    wx.navigateTo({
+      url: `/pages/details/details?openId=${that.data.form.openId}`
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

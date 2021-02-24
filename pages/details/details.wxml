@@ -10,8 +10,12 @@
             <!-- <view class="titleText">{{item.title}}</view> -->
           </view>
           <view class="titleText">
-            <block wx:for='{{item.title}}' wx:key='index' wx:for-item='items' wx:for-index='ItemIndex'>
-              <view class="titleTextITem">{{items}}</view>
+            <block wx:for='{{item.title}}' wx:key='index' wx:for-item='items' wx:for-index='itemIndex'>
+              <view class="itemIndex">
+                <view class="titleTextITem">{{items}}</view>
+                <image mode="aspectFill" class="itemImg" src="../../images/textBg1.png"></image>
+              </view>
+
             </block>
           </view>
 

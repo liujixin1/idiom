@@ -9,7 +9,7 @@ Page({
     swiperIndex: 0,
     dataCenter: [{
       title: ['你', '', '我', '他'],
-      titleImg: "../../images/packet.jpg",
+      titleImg: "../../images/xx107.png",
       textList: [{
           text: '好',
           bool: false,
@@ -31,7 +31,7 @@ Page({
     },
     {
       title: ['你', '', '我', '他'],
-      titleImg:"../../images/packet.jpg",
+      titleImg:"../../images/3.png",
       textList: [{
           text: '好',
           bool: false,
@@ -53,7 +53,7 @@ Page({
     },
     {
       title: ['你', '', '我', '他'],
-      titleImg: "../../images/packet.jpg",
+      titleImg: "../../images/2.png",
       textList: [{
           text: '好',
           bool: false,

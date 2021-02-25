@@ -67,6 +67,10 @@ Page({
       url: `/pages/gold/gold?openId=${that.data.form.openId}`
     })
   },
+    // 截获竖向滑动
+    catchTouchMove: function (res) {
+      return false
+    },
   //红包列表
   toPacket(){
     const that = this;

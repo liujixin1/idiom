@@ -3,8 +3,8 @@
   <swiper class="swiper_container" vertical="true" autoplay="true" circular="true" interval="5000">
 
     <block wx:for="{{swiperList}}" wx:key="*this">
-      <swiper-item>
-        <view class="swiper-item">
+      <swiper-item >
+        <view class="swiper-item" catchtouchmove='catchTouchMove'>
           <image mode='aspectFill' class="swiperImg" src="{{item.img}}" />
           <view class="swiperText">{{item.text}}</view>
         </view>

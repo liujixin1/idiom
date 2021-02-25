@@ -6,7 +6,7 @@
       <swiper-item catchtouchmove='catchTouchMove'>
         <view class='swiperItem {{swiperIndex == listItemIndex?"active":""}}'>
           <view class="title">
-            <image class="topImg" mode="aspectFill" src="{{item.titleImg}}"></image>
+            <image class="topImg" mode="heightFix" src="{{item.titleImg}}"></image>
             <!-- <view class="titleText">{{item.title}}</view> -->
           </view>
           <view class="titleText">

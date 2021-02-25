@@ -38,7 +38,7 @@
       </view>
     </view>
   </view>
-  <view class="toBtn">开始猜成语</view>
+  <view class="toBtn" bindtap='toDetails'>开始猜成语</view>
  
   <view class="footer">
     <view class="footerItem" bindtap='toGold'>

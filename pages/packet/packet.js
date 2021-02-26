@@ -1,20 +1,35 @@
 // pages/packet/packet.js
+const db = wx.cloud.database();
+const time = require('../../utils/util.js');
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    listData: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const that = this;
+    that.getData()
   },
-
+  getData() {
+    const that = this;
+    wx.showLoading({
+      title: '加载中...'
+    })
+    db.collection('packet').get().then(res => {
+      wx.hideLoading()
+      that.setData({
+        listData: res.data
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

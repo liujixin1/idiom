@@ -1,6 +1,11 @@
 /* pages/packet/packet.wxss */
+page {
+  background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+  position: relative;
+}
 .packetList .packetItem{
   margin: 0 auto;
+  margin-top: 30rpx;
   width: 700rpx;
   overflow: hidden;
 
@@ -11,9 +16,12 @@
   display: flex;
 }
 .packetList .packetItem .packetImg{
-  width: 150rpx;
+  width: 200rpx;
   height: 200rpx;
-  margin-right: 40rpx;
+ 
+}
+.packetList .packetItem .packetItemCenter{
+  margin-left: 40rpx;
 }
 .packetList .packetItem .packetItemCenter .packetName{
   color: #fff;
@@ -53,4 +61,14 @@
   font-weight: bold;
   font-size: 24rpx;
   margin-left: auto;
+}
+.bottom{
+  margin: 0 auto;
+  width: 100%;
+  height: 240rpx;
+  overflow: hidden;
+  /* border-radius: 20rpx; */
+  position: fixed;
+  left: 0rpx;
+  bottom: 0rpx;
 }

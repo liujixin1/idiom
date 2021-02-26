@@ -1,18 +1,22 @@
 <!--pages/packet/packet.wxml-->
 <view class="container">
   <view class="packetList">
-    <view class="packetItem">
-      
-        <image mode='heightFix' class="packetImg" src="../../images/packet.jpg"></image>
+    <block wx:for='{{listData}}' wx:key='item'>
+      <view class="packetItem" wx:if="{{item.show}}">
+        <image mode='heightFix' class="packetImg" src="{{item.img}}"></image>
         <view class="packetItemCenter">
-          <view class="packetName">微 信 红 包</view>
-          <view class="packetSum">30 元</view>
+          <view class="packetName">{{item.name}}</view>
+          <view class="packetSum">{{item.num}} 元</view>
           <view class="footer">
-          <view class="packetSum">剩余：30 / 90</view>
-          <view class="toBtn">立即兑换</view>
+            <view class="packetSum">剩余：{{item.sum}} / {{item.overall}}</view>
+            <view class="toBtn">立即兑换</view>
           </view>
         </view>
-     
-    </view>
+
+      </view>
+    </block>
+  </view>
+  <view class="bottom">
+    <ad unit-id="adunit-a4f8694009cff9dc" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="white"></ad>
   </view>
 </view>

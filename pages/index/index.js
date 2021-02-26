@@ -80,10 +80,14 @@ Page({
   },
   getData(openId) {
     const that = this;
+    // wx.showLoading({
+    //   title: '加载中...'
+    // })
     db.collection('user').where({
         openId: openId,
       })
       .get().then(res => {
+          // wx.hideLoading()
         that.setData({
           form: res.data[0]
         })
@@ -140,6 +144,7 @@ Page({
    */
   onShow: function (options) {
     const that = this;
+    console.log(88888888)
     if (app.globalData.userInfo) {
       that.getData(app.globalData.userInfo.openId)
       that.setData({

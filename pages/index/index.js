@@ -107,7 +107,7 @@ Page({
   toDetails(){
     const that = this;
     wx.navigateTo({
-      url: `/pages/details/details?openId=${that.data.form.openId}`
+      url: `/pages/details/details?openId=${that.data.form.openId}&packet=${that.data.form.packet}`
     })
   },
 
@@ -144,7 +144,6 @@ Page({
    */
   onShow: function (options) {
     const that = this;
-    console.log(88888888)
     if (app.globalData.userInfo) {
       that.getData(app.globalData.userInfo.openId)
       that.setData({

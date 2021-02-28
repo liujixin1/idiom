@@ -7,8 +7,10 @@
     "pages/gold/gold",
     "pages/packet/packet",
     "pages/login/login"
+   
+
+   
   ],
- 
   "window": {
     "backgroundTextStyle": "light",
     "navigationStyle": "default",

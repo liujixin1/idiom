@@ -7,131 +7,163 @@ Page({
    */
   data: {
     swiperIndex: 0,
-    dataCenter: [{
-      title: ['你', '', '我', '他'],
-      titleImg: "../../images/xx107.png",
-      textList: [{
-          text: '好',
-          bool: false,
-        },
-        {
-          text: '行',
-          bool: true,
-        },
-        {
-          text: '本',
-          bool: false,
-        },
-        {
-          text: '计',
-          bool: false,
-        }
-      ],
-      sum: 0.34
-    },
-    {
-      title: ['你', '', '我', '他'],
-      titleImg:"../../images/3.png",
-      textList: [{
-          text: '好',
-          bool: false,
-        },
-        {
-          text: '行',
-          bool: true,
-        },
-        {
-          text: '本',
-          bool: false,
-        },
-        {
-          text: '计',
-          bool: false,
-        }
-      ],
-      sum: 0.34
-    },
-    {
-      title: ['你', '', '我', '他'],
-      titleImg: "../../images/2.png",
-      textList: [{
-          text: '好',
-          bool: false,
-        },
-        {
-          text: '行',
-          bool: true,
-        },
-        {
-          text: '本',
-          bool: false,
-        },
-        {
-          text: '计',
-          bool: false,
-        }
-      ],
-      sum: 0.34
-    }
-  ],
-    achieve: false,
-    page: 1,
-    pageSize: ''
-
+    listindex: 0,
+    dataCenter: [],
+    type: 1,
+    log: false,
+    shade: false,
+    login: false,
+    packet: false,
+    open: false,
+    next: false,
+    gold: 0,
+    topic: 0,
+    packetPrice: 0,
+    packetSum: 0
   },
-  getData(id) {
+  open() {
+    const that = this;
+    let index = that.data.listindex
+    console.log(that.data.dataCenter[index].sum, 666)
+    that.setPacket(parseFloat(that.data.dataCenter[index].sum))
+    that.setData({
+      open: true
+    })
+  },
+  packetErr() {
+    const that = this;
+    that.setData({
+      open: false,
+      packet: false,
+      next: true
+    })
+  },
+  // 进入下一关
+  nextBtn() {
+    const that = this;
+    this.setTopic()
+    that.setData({
+      swiperIndex: that.data.listindex + 1,
+      next: false,
+      shade: false
+    })
+    if (that.data.swiperIndex == that.data.dataCenter.length - 1) {
+
+      that.getDatas()
+    }
+  },
+  getData(type) {
     const that = this;
     wx.showLoading({
       title: '加载中...'
     })
-    db.collection('test').doc(id).get().then(res => {
-      setTimeout(() => {
-        wx.hideLoading()
-      }, 500)
-      that.setData({
-        pageSize: res.data.testList.length
+    const PAGE = 10;
+    db.collection('idiom').aggregate()
+      .sample({
+        size: 5
+      }).where({
+        author:type
       })
+      .end().then(res => {
+        console.log(res, 9999)
+        wx.hideLoading()
+        that.setData({
+          dataCenter: res.list,
+          // packetSum: res.data[0].sum
+        })
+      })
+  },
+  getDatas() {
+    const that = this;
+    const PAGE = 10;
+    db.collection('idiom').limit(PAGE).get().then(res => {
+      let dataList = that.data.dataCenter;
       that.setData({
-        dataCenter: res.data
+        dataCenter: dataList.concat(res.data)
       })
     })
   },
   slide(e) {
     const that = this;
-    that.setData({
-      page: e.detail.current + 1
+  },
+  setGold(gold) {
+    const that = this;
+    const _ = db.command
+    db.collection('user').where({
+      openId: that.data.openId
+    }).update({
+      data: {
+        gold: _.set(that.data.gold - gold),
+      },
+      success: (() => {
+        that.getGold(app.globalData.userInfo.openId)
+      })
     })
-    if (that.data.page == that.data.pageSize) {
-      that.setData({
-        swiperIndex: e.detail.current,
-        achieve: true
+  },
+  setPacket(packet) {
+    console.log(packet, 999)
+    const that = this;
+    const _ = db.command
+    let sum = (that.data.packetPrice + packet).toFixed(2)
+    db.collection('user').where({
+      openId: that.data.openId
+    }).update({
+      data: {
+        packet: _.set(sum),
+      },
+      success: (() => {
+        // that.getGold(app.globalData.userInfo.openId)
       })
-    } else {
-      that.setData({
-        swiperIndex: e.detail.current,
-        achieve: false
+    })
+  },
+  setTopic() {
+    const that = this;
+    const _ = db.command
+    db.collection('user').where({
+      openId: that.data.openId
+    }).update({
+      data: {
+        topic: _.inc(1)
+      },
+      success: (() => {
+        that.getGold(app.globalData.userInfo.openId)
       })
-    }
-
+    })
   },
   clickItem(e) {
     const that = this;
-    let listindex = e.currentTarget.dataset.listindex;
-    let bool = e.currentTarget.dataset.bool;
-    if(bool){
-      if(that.data.swiperIndex==2){
-        that.setData({
-          swiperIndex: 0
+    if (that.data.log) {
+      let listindex = e.currentTarget.dataset.listindex;
+      let text = e.currentTarget.dataset.text;
+      let bool = e.currentTarget.dataset.bool;
+      that.setGold(5)
+      if (bool) {
+
+        let arrList = that.data.dataCenter[listindex].idiom;
+        arrList.forEach((res, index) => {
+          if (res == "") {
+            that.setData({
+              [`dataCenter[${listindex}].idiom[${index}]`]: text,
+              packetSum: that.data.dataCenter[listindex].sum,
+              shade: true,
+              packet: true,
+              listindex: listindex
+            })
+          }
         })
-      }else{
-        that.setData({
-          swiperIndex: listindex + 1
+      } else {
+        wx.showToast({
+          title: '不正确',
+          icon: 'error',
+          duration: 1000
         })
       }
-     
+    } else {
+      that.setData({
+        shade: true,
+        login: true
+      })
     }
-      
-    
   },
   isEmpty(obj) {
     for (var key in obj) {
@@ -140,123 +172,43 @@ Page({
     }
     return true;
   },
+  //取消
+  cancel() {
+    const that = this;
+    that.setData({
+      shade: false,
+      login: false
+    })
+  },
   // 登录
   getUserInfo: function (e) {
     const that = this;
     if (e.detail.errMsg == "getUserInfo:ok") {
-
-      if (app.globalData.userInfo) {
-
-        if (that.data.dataCenter.resultList) {
-          let arr = [];
-          for (var i = 0; i < that.data.pageSize; i++) {
-            arr[i] = that.data.dataCenter.resultList[i]
-          }
-          let bool = arr.some(res => {
-            return res == undefined
+      app.login(e, function () {
+        if (app.globalData.userInfo) {
+          that.setData({
+            shade: false,
+            login: false,
+            log: true
           })
-          if (!bool) {
-            wx.showLoading({
-              title: '生成海报'
-            })
-            console.log(that.data.itemid)
-            setTimeout(() => {
-              if (that.data.itemid == 2) {
-                that.getAvatarUrl(app.globalData.userInfo.avatarUrl)
-              }
-
-            }, 1000)
-          } else {
-            wx.showModal({
-              content: '选项未选，请再去选着',
-              showCancel: false
-            })
-          }
-
-        } else {
-          wx.showModal({
-            content: '选项未选，请再去选着',
-            showCancel: false
-          })
+          that.getGold(app.globalData.userInfo.openid)
         }
-      } else {
-
-        app.login(e, function () {
-          if (that.data.dataCenter.resultList) {
-            let arr = [];
-            for (var i = 0; i < that.data.pageSize; i++) {
-              arr[i] = that.data.dataCenter.resultList[i]
-            }
-            let bool = arr.some(res => {
-              return res == undefined
-            })
-            if (!bool) {
-              wx.showLoading({
-                title: '生成海报'
-              })
-              setTimeout(() => {
-                if (that.data.itemid == 2) {
-                  that.getAvatarUrl(app.globalData.userInfo.avatarUrl)
-                }
-              }, 1000)
-
-            } else {
-              wx.showModal({
-                content: '选项未选，请再去选着',
-                showCancel: false
-              })
-            }
-
-          } else {
-            wx.showModal({
-              content: '选项未选，请再去选着',
-              showCancel: false
-            })
-          }
-        });
-      }
-
+      });
     }
   },
-  //头像链接转换
-  transitionImg(src) {
-    let top = 'cloud://home-520bf8.686f-home-520bf8-1255630290/';
-    let imgUrl = src.split(top);
-    return 'https://686f-home-520bf8-1255630290.tcb.qcloud.la/' + imgUrl[1];
-  },
-  getAvatarUrl(avatarUrl) {
+  getGold(openId) {
     const that = this;
-    //获取图片信息
-    wx.getImageInfo({
-      src: avatarUrl,
-      success: function (res) {
-        //上传图片
-        const tempFilePaths = res.path;
-        //声明图片名字为时间戳和随机数拼接成的，尽量确保唯一性
-        let time = Date.now() + parseInt(Math.random() * 999) + parseInt(Math.random() * 2222);
-        //拓展名
-        var fileExt = tempFilePaths.replace(/.+\./, "");
-        //拼接成图片名
-        let keepname = 'userImg/' + time + '.' + fileExt;
-        wx.cloud.uploadFile({
-          cloudPath: keepname,
-          filePath: tempFilePaths, // 文件路径
-        }).then(e => {
+    db.collection('user').where({
+        openId: openId,
+      })
+      .get().then(res => {
 
-          let imgUrl = that.transitionImg(e.fileID)
-          wx.hideLoading()
-          wx.navigateTo({
-            url: `/pages/part/pages/placard2/placard2?center=${that.data.dataCenter.resultList}&id=${that.data.dataid}&userImg=${imgUrl}`
-          })
-        }).catch(error => {
-          // handle error
+        that.setData({
+          gold: res.data[0].gold,
+          topic: res.data[0].topic,
+          packetPrice: parseFloat(res.data[0].packet),
         })
-
-      },
-      fail: function (srev) {
-        console.log(srev);
-      }
-    });
+      })
   },
   // 截获竖向滑动
   catchTouchMove: function (res) {
@@ -267,11 +219,38 @@ Page({
    */
   onLoad: function (options) {
     const that = this;
+    console.log(options)
+    let type = 1;
+    // if (options.packet <= 20) {
+    //   type = 1
+    // } else if (options.packet > 20 && options.packet <= 25) {
+    //   type = 2
+    // } else if (options.packet > 25 && options.packet <= 28) {
+    //   type = 3
+    // } else if (options.packet > 28) {
+    //   type = 4
+    // }
+    if (app.globalData.userInfo) {
+
+      that.getData(type)
+      that.getGold(app.globalData.userInfo.openid)
+
+      that.setData({
+        type:type,
+        log: true
+      })
+    } else {
+      that.getData(type)
+      that.setData({
+        type:type,
+        log: false
+      })
+    }
     // that.setData({
     //   itemid: options.itemid,
     //   dataid: options.id
     // })
-    // that.getData(options.id)
+
   },
 
   /**

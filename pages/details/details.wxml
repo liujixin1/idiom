@@ -1,16 +1,50 @@
 <!--pages/details/details.wxml-->
 <view class="container">
+  <view class="shade" wx:if='{{shade}}'></view>
+  <view class="login" wx:if='{{login}}'>
+    <view class="loginTitle">您还未登录</view>
+    <view class="loginTop">需登录方可进行以下操作：</view>
+    <view class="loginList">
+      <view class="loginItem">1. 开始答题</view>
+      <view class="loginItem">2. 完善信息</view>
+      <view class="loginItem">3. 行兑换操作</view>
+    </view>
+    <view class="btnCenter">
+      <button class="btn" bindtap="cancel">取消</button>
+      <button class="btn" open-type='getUserInfo' bindgetuserinfo="getUserInfo">立即登录</button>
+    </view>
+  </view>
+  <view class="packet" wx:if="{{packet}}">
+    <view class="packetCenter">
+      <view class="open" bindtap="open"></view>
+      <view wx:if="{{open}}" class="openCenter">{{packetSum}}元</view>
+      <image class="packetImg" mode="heightFix" src="../../images/packet.png"></image>
+    </view>
+    <image class="packetErr" bindtap="packetErr"  src="../../images/err.png"></image>
+  </view>
+  <view class="next" wx:if="{{next}}">
+    <image class="nextImg" mode="heightFix" src="../../images/correct.png"></image>
+    <view class="congratulation">恭喜闯关成功</view>
+    <view class="hint">连续答题有机会得红包哦</view>
+    <button class="nextBtn" bindtap="nextBtn">进入下一关</button>
+
+  </view>
+  <view class="topic">第{{topic}}关</view>
+  <view class="gold">
+    <view class='iconfont icon-gold'></view>
+    <view class="goldText">{{gold}}</view>
+  </view>
   <swiper class="swiper" current='{{swiperIndex}}' circular="true" previous-margin='40rpx' next-margin='40rpx'
     mode='aspectFill' bindchange='slide'>
     <block wx:for='{{dataCenter}}' wx:key='index' wx:for-index='listItemIndex'>
       <swiper-item catchtouchmove='catchTouchMove'>
         <view class='swiperItem {{swiperIndex == listItemIndex?"active":""}}'>
           <view class="title">
-            <image class="topImg" mode="heightFix" src="{{item.titleImg}}"></image>
+            <image class="topImg" mode="heightFix" src="{{item.img}}"></image>
             <!-- <view class="titleText">{{item.title}}</view> -->
           </view>
           <view class="titleText">
-            <block wx:for='{{item.title}}' wx:key='index' wx:for-item='items' wx:for-index='itemIndex'>
+            <block wx:for='{{item.idiom}}' wx:key='index' wx:for-item='items' wx:for-index='itemIndex'>
               <view class="itemIndex">
                 <view class="titleTextITem">{{items}}</view>
                 <image mode="aspectFill" class="itemImg" src="../../images/textBg1.png"></image>
@@ -21,11 +55,12 @@
 
 
           <view class="list">
-            <block wx:for='{{item.textList}}' wx:key='index' wx:for-item='items' wx:for-index='ItemIndex'>
-              <view class="item" data-listindex='{{listItemIndex}}' data-bool='{{items.bool}}' bindtap="clickItem">
-                <view wx:if='{{dataCenter.textList[listItemIndex] == ItemIndex}}' class="bg">
+            <block wx:for='{{item.choose}}' wx:key='index' wx:for-item='items' wx:for-index='ItemIndex'>
+              <view class="item" data-listindex='{{listItemIndex}}' data-bool='{{items.bool}}'
+                data-text='{{items.text}}' bindtap="clickItem">
+                <!-- <view wx:if='{{dataCenter.textList[listItemIndex] == ItemIndex}}' class="bg">
                   <view class='iconfont icon-picth'></view>
-                </view>
+                </view> -->
                 <view class="itemText">{{items.text}}</view>
                 <image mode="aspectFill" class="itemImg" src="../../images/textBg.png"></image>
               </view>
@@ -35,10 +70,5 @@
       </swiper-item>
     </block>
   </swiper>
-  <!-- <button wx:if='{{achieve}}' class="btn" open-type='getUserInfo' bindgetuserinfo="getUserInfo">提交</button> -->
-  <!-- <view wx:else class="footer">
-    <view>{{page}}</view>
-    <view></view>
-    <view>{{pageSize}}</view>
-  </view> -->
+
 </view>

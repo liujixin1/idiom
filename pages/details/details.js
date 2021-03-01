@@ -28,7 +28,6 @@ Page({
 
     that.audioCtx.play()
     let index = that.data.listindex
-    console.log(that.data.dataCenter[index].sum, 666)
     that.setPacket(parseFloat(that.data.dataCenter[index].sum))
     that.setData({
       open: true
@@ -79,7 +78,6 @@ Page({
         size: 5
       })
       .end().then(res => {
-        console.log(res, 9999)
         wx.hideLoading()
         that.setData({
           dataCenter: res.list,
@@ -116,12 +114,11 @@ Page({
         gold: _.set(that.data.gold - gold),
       },
       success: (() => {
-        that.getGold(app.globalData.userInfo.openId)
+        that.getGold(app.globalData.userInfo.openid)
       })
     })
   },
   setPacket(packet) {
-    console.log(packet, 999)
     const that = this;
     const _ = db.command
     let sum = (that.data.packetPrice + packet).toFixed(2)
@@ -132,7 +129,6 @@ Page({
         packet: _.set(sum),
       },
       success: (() => {
-        // that.getGold(app.globalData.userInfo.openId)
       })
     })
   },
@@ -146,38 +142,58 @@ Page({
         topic: _.inc(1)
       },
       success: (() => {
-        that.getGold(app.globalData.userInfo.openId)
+        that.getGold(app.globalData.userInfo.openid)
       })
     })
   },
   clickItem(e) {
     const that = this;
     if (that.data.log) {
-      let listindex = e.currentTarget.dataset.listindex;
-      let text = e.currentTarget.dataset.text;
-      let bool = e.currentTarget.dataset.bool;
-      that.setGold(5)
-      if (bool) {
-
-        let arrList = that.data.dataCenter[listindex].idiom;
-        arrList.forEach((res, index) => {
-          if (res == "") {
-            that.setData({
-              [`dataCenter[${listindex}].idiom[${index}]`]: text,
-              packetSum: that.data.dataCenter[listindex].sum,
-              shade: true,
-              packet: true,
-              listindex: listindex
-            })
+      if(that.data.gold >0){
+        let listindex = e.currentTarget.dataset.listindex;
+        let text = e.currentTarget.dataset.text;
+        let bool = e.currentTarget.dataset.bool;
+        that.setGold(5)
+        if (bool) {
+          let arrList = that.data.dataCenter[listindex].idiom;
+          arrList.forEach((res, index) => {
+            if (res == "") {
+              that.setData({
+                [`dataCenter[${listindex}].idiom[${index}]`]: text,
+                packetSum: that.data.dataCenter[listindex].sum,
+                shade: true,
+                packet: true,
+                listindex: listindex
+              })
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '不正确',
+            icon: 'error',
+            duration: 1000
+          })
+        }
+      }else{
+        wx.showModal({
+          title: '温馨提示',
+          content: '您的金币不足，请返回小程序首页，获取更多金币',
+          confirmText:'我知道了',
+          confirmColor:'#F56C6C',
+          success (res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+              wx.redirectTo({
+                url: 'pages/index/index'
+              })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
           }
         })
-      } else {
-        wx.showToast({
-          title: '不正确',
-          icon: 'error',
-          duration: 1000
-        })
       }
+
+      
     } else {
       that.setData({
         shade: true,
@@ -239,7 +255,6 @@ Page({
    */
   onLoad: function (options) {
     const that = this;
-    console.log(options)
     let type = 1;
     if (options.packet <= 20) {
       type = 1

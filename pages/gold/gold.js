@@ -23,7 +23,7 @@ Page({
         gold: _.inc(gold)
       },
       success: (() => {
-        that.getGold(app.globalData.userInfo.openId)
+        that.getGold(app.globalData.userInfo.openid)
 
       })
     })
@@ -42,7 +42,6 @@ Page({
   },
   toVideo() {
     const that = this;
-
     // 用户触发广告后，显示激励视频广告
     if (videoAd) {
       videoAd.show().catch(() => {
@@ -94,7 +93,7 @@ Page({
   onLoad: function (options) {
     const that = this;
     if (app.globalData.userInfo) {
-      that.getGold(app.globalData.userInfo.openId)
+      that.getGold(app.globalData.userInfo.openid)
     }
     that.getData()
     that.setData({

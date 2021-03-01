@@ -83,6 +83,7 @@ Page({
     // wx.showLoading({
     //   title: '加载中...'
     // })
+    console.log(openId,999999)
     db.collection('user').where({
         openId: openId,
       })
@@ -97,7 +98,8 @@ Page({
     const that = this;
     if (e.detail.errMsg == "getUserInfo:ok") {
       app.login(e, function () {
-        that.getData(e.detail.userInfo.openId)
+        console.log(e,6666)
+        that.getData(e.detail.userInfo.openid)
         that.setData({
           userInfo: e.detail.userInfo
         })
@@ -145,7 +147,8 @@ Page({
   onShow: function (options) {
     const that = this;
     if (app.globalData.userInfo) {
-      that.getData(app.globalData.userInfo.openId)
+      console.log(app.globalData.userInfo,777)
+      that.getData(app.globalData.userInfo.openid)
       that.setData({
         userInfo: app.globalData.userInfo
       })

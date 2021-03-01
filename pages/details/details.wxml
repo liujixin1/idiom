@@ -34,6 +34,7 @@
     <view class='iconfont icon-gold'></view>
     <view class="goldText">{{gold}}</view>
   </view>
+  <audio  src="{{src}}" id="myAudio" ></audio>
   <swiper class="swiper" current='{{swiperIndex}}' circular="true" previous-margin='40rpx' next-margin='40rpx'
     mode='aspectFill' bindchange='slide'>
     <block wx:for='{{dataCenter}}' wx:key='index' wx:for-index='listItemIndex'>

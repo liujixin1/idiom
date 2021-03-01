@@ -19,10 +19,14 @@ Page({
     gold: 0,
     topic: 0,
     packetPrice: 0,
-    packetSum: 0
+    packetSum: 0,
+    src: '../../images/packet.mp3'
   },
+
   open() {
     const that = this;
+
+    that.audioCtx.play()
     let index = that.data.listindex
     console.log(that.data.dataCenter[index].sum, 666)
     that.setPacket(parseFloat(that.data.dataCenter[index].sum))
@@ -48,8 +52,18 @@ Page({
       shade: false
     })
     if (that.data.swiperIndex == that.data.dataCenter.length - 1) {
-
-      that.getDatas()
+      let type = 1;
+      let packet = that.data.packetPrice;
+      if (packet <= 20) {
+        type = 1
+      } else if (packet > 20 && packet <= 25) {
+        type = 2
+      } else if (packet > 25 && packet <= 28) {
+        type = 3
+      } else if (packet > 28) {
+        type = 4
+      }
+      that.getDatas(type)
     }
   },
   getData(type) {
@@ -58,11 +72,11 @@ Page({
       title: '加载中...'
     })
     const PAGE = 10;
-    db.collection('idiom').aggregate()
+    db.collection('idiom').aggregate().match({
+        author: type
+      })
       .sample({
         size: 5
-      }).where({
-        author:type
       })
       .end().then(res => {
         console.log(res, 9999)
@@ -73,15 +87,21 @@ Page({
         })
       })
   },
-  getDatas() {
+  getDatas(type) {
     const that = this;
     const PAGE = 10;
-    db.collection('idiom').limit(PAGE).get().then(res => {
-      let dataList = that.data.dataCenter;
-      that.setData({
-        dataCenter: dataList.concat(res.data)
+    db.collection('idiom').aggregate().match({
+        author: type
       })
-    })
+      .sample({
+        size: 5
+      })
+      .end().then(res => {
+        let dataList = that.data.dataCenter;
+        that.setData({
+          dataCenter: dataList.concat(res.list)
+        })
+      })
   },
   slide(e) {
     const that = this;
@@ -221,28 +241,28 @@ Page({
     const that = this;
     console.log(options)
     let type = 1;
-    // if (options.packet <= 20) {
-    //   type = 1
-    // } else if (options.packet > 20 && options.packet <= 25) {
-    //   type = 2
-    // } else if (options.packet > 25 && options.packet <= 28) {
-    //   type = 3
-    // } else if (options.packet > 28) {
-    //   type = 4
-    // }
+    if (options.packet <= 20) {
+      type = 1
+    } else if (options.packet > 20 && options.packet <= 25) {
+      type = 2
+    } else if (options.packet > 25 && options.packet <= 28) {
+      type = 3
+    } else if (options.packet > 28) {
+      type = 4
+    }
     if (app.globalData.userInfo) {
 
       that.getData(type)
       that.getGold(app.globalData.userInfo.openid)
 
       that.setData({
-        type:type,
+     
         log: true
       })
     } else {
       that.getData(type)
       that.setData({
-        type:type,
+      
         log: false
       })
     }
@@ -257,7 +277,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.audioCtx = wx.createAudioContext('myAudio')
+    this.audioCtx.pause()
   },
 
   /**

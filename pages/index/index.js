@@ -50,29 +50,109 @@ Page({
       },
 
     ],
+    rankingList: [{
+        mark: 1,
+        img: '../../images/authorImg1.jpg',
+        name: '闲聊',
+        text: 5439
+      },
+      {
+        mark: 2,
+        img: '../../images/authorImg2.jpg',
+        name: '闲聊',
+        text: 5124
+      },
+      {
+        mark: 3,
+        img: '../../images/authorImg3.jpg',
+        name: '闲聊',
+        text: 5034
+      },
+      {
+        mark: 4,
+        img: '../../images/authorImg4.jpg',
+        name: '闲聊',
+        text: 4931
+      },
+      {
+        mark: 5,
+        img: '../../images/authorImg5.jpg',
+        name: '闲聊',
+        text: 4876
+      },
+      {
+        mark: 5,
+        img: '../../images/authorImg6.jpg',
+        name: '闲聊',
+        text: 4865
+      },
+      {
+        mark: 7,
+        img: '../../images/authorImg7.jpg',
+        name: '闲聊',
+        text: 4804
+      },
+      {
+        mark: 8,
+        img: '../../images/authorImg8.jpg',
+        name: '闲聊',
+        text: 4777
+      },
+      {
+        mark: 9,
+        img: '../../images/authorImg9.jpg',
+        name: '闲聊',
+        text: 4769
+      },
+      {
+        mark: 10,
+        img: '../../images/authorImg10.jpg',
+        name: '闲聊',
+        text: 4755
+      },
+
+    ],
     userInfo: {},
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     form: {
       appId: '',
-      openId:'',
+      openId: '',
       gold: 0,
       packet: 0,
       topic: 0,
-    }
+    },
+    shade: false,
+    ranking: false
+  },
+  //继续答题
+  rankingBtn() {
+    const that = this;
+    that.setData({
+      shade: false,
+      ranking: false
+    })
+  },
+  //显示排行榜
+  showRanking() {
+    const that = this;
+    that.setData({
+      shade: true,
+      ranking: true
+    })
   },
   //金币列表
-  toGold(){
+  toGold() {
     const that = this;
     wx.navigateTo({
       url: `/pages/gold/gold?openId=${that.data.form.openId}`
     })
   },
-    // 截获竖向滑动
-    catchTouchMove: function (res) {
-      return false
-    },
+  // 截获竖向滑动
+  catchTouchMove: function (res) {
+    return false
+  },
   //红包列表
-  toPacket(){
+  toPacket() {
     const that = this;
     wx.navigateTo({
       url: `/pages/packet/packet?openId=${that.data.form.openId}`
@@ -83,12 +163,12 @@ Page({
     // wx.showLoading({
     //   title: '加载中...'
     // })
-    console.log(openId,999999)
+    console.log(openId, 999999)
     db.collection('user').where({
         openId: openId,
       })
       .get().then(res => {
-          // wx.hideLoading()
+        // wx.hideLoading()
         that.setData({
           form: res.data[0]
         })
@@ -98,7 +178,7 @@ Page({
     const that = this;
     if (e.detail.errMsg == "getUserInfo:ok") {
       app.login(e, function () {
-        console.log(e,6666)
+        console.log(e, 6666)
         that.getData(e.detail.userInfo.openid)
         that.setData({
           userInfo: e.detail.userInfo
@@ -106,7 +186,7 @@ Page({
       });
     }
   },
-  toDetails(){
+  toDetails() {
     const that = this;
     wx.navigateTo({
       url: `/pages/details/details?openId=${that.data.form.openId}&packet=${that.data.form.packet}`
@@ -125,7 +205,7 @@ Page({
     //   interstitialAd.onError((err) => {})
     //   interstitialAd.onClose(() => {})
     // }
-    
+
     // // 在适合的场景显示插屏广告
     // if (interstitialAd) {
     //   interstitialAd.show().catch((err) => {
@@ -147,7 +227,7 @@ Page({
   onShow: function (options) {
     const that = this;
     if (app.globalData.userInfo) {
-      console.log(app.globalData.userInfo,777)
+      console.log(app.globalData.userInfo, 777)
       that.getData(app.globalData.userInfo.openid)
       that.setData({
         userInfo: app.globalData.userInfo
@@ -169,7 +249,7 @@ Page({
 
   },
 
- 
+
   /**
    * 用户点击右上角分享
    */
@@ -180,6 +260,6 @@ Page({
       imageUrl: that.data.banner[0].img
     }
   },
-  
+
 
 })

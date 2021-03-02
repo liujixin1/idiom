@@ -1,9 +1,28 @@
 <!--pages/index/index.wxml-->
 <view class='container'>
+  <view class="shade" wx:if='{{shade}}'></view>
+  <view class="ranking" wx:if='{{ranking}}'>
+    <view class="rankingCenter">
+      <view class="rankingTitle">闯关排行榜</view>
+      <scroll-view scroll-y="true" class="rankingList">
+        <block wx:for="{{rankingList}}" wx:key="*this">
+          <view class="rankingItem">
+            <view class="num">{{item.mark}}</view>
+            <image mode='aspectFill' class="rankingImg" src="{{item.img}}" />
+            <view class="rankingName">{{item.name}}</view>
+            <view class="rankingText">{{item.text}}题</view>
+          </view>
+        </block>
+      </scroll-view>
+      <view class="rankingFooter">
+        <button class="rankingBtn" bindtap="rankingBtn">继续答题</button>
+      </view>
+    </view>
+  </view>
   <swiper class="swiper_container" vertical="true" autoplay="true" circular="true" interval="5000">
 
     <block wx:for="{{swiperList}}" wx:key="*this">
-      <swiper-item >
+      <swiper-item>
         <view class="swiper-item" catchtouchmove='catchTouchMove'>
           <image mode='aspectFill' class="swiperImg" src="{{item.img}}" />
           <view class="swiperText">{{item.text}}</view>
@@ -39,7 +58,7 @@
     </view>
   </view>
   <view class="toBtn" bindtap='toDetails'>开始猜成语</view>
- 
+
   <view class="footer">
     <view class="footerItem" bindtap='toGold'>
       <view class='iconfont icon-gold'></view>
@@ -49,15 +68,15 @@
       <view class='iconfont icon-glory'></view>
       <view class="itemText">红包兑换</view>
     </view>
-    <view class="footerItem">
+    <view class="footerItem" bindtap='showRanking'>
       <view class='iconfont icon-seniority'></view>
       <view class="itemText">排行榜</view>
     </view>
     <button class='footerItem' open-type='contact'>
       <view class='iconfont icon-service'></view>
-      <view class="itemText btnText" >联系客服</view>
+      <view class="itemText btnText">联系客服</view>
     </button>
-    
+
   </view>
- 
+
 </view>

@@ -2,14 +2,16 @@
 <view class="container">
   <view class="packetList">
     <block wx:for='{{listData}}' wx:key='item'>
-      <view class="packetItem" wx:if="{{item.show}}">
+      <view class="packetItem" >
         <image mode='heightFix' class="packetImg" src="{{item.img}}"></image>
         <view class="packetItemCenter">
           <view class="packetName">{{item.name}}</view>
           <view class="packetSum">{{item.num}} 元</view>
           <view class="footer">
             <view class="packetSum">剩余：{{item.sum}} / {{item.overall}}</view>
-            <view class="toBtn">立即兑换</view>
+            <view class="toBtn" wx:if="{{item.show}}">立即兑换</view>
+            <view class="toBtn1" wx:else>暂无红包</view>
+
           </view>
         </view>
 

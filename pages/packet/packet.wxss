@@ -72,3 +72,19 @@ page {
   left: 0rpx;
   bottom: 0rpx;
 }
+.toBtn1{
+  justify-content: space-between;
+  height: 50rpx;
+  line-height: 50rpx;
+  box-sizing: border-box;
+  width: 200rpx;
+  text-align: center;
+  z-index: 10;
+  margin-top: 10rpx;
+  background-image: linear-gradient(to left, #BDBBBE 0%, #9D9EA3 100%), radial-gradient(88% 271%, rgba(255, 255, 255, 0.25) 0%, rgba(254, 254, 254, 0.25) 1%, rgba(0, 0, 0, 0.25) 100%), radial-gradient(50% 100%, rgba(255, 255, 255, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%); background-blend-mode: normal, lighten, soft-light;
+  border-radius: 25rpx;
+  color: #fff;
+  font-weight: bold;
+  font-size: 24rpx;
+  margin-left: auto;
+}

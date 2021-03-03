@@ -17,7 +17,7 @@ App({
   },
 
   // 添加用户
-  pushUserData(user,avatarUrl) {
+  pushUserData(user,callback) {
     const db = wx.cloud.database()
     const that = this;
     db.collection('user').where({
@@ -28,13 +28,16 @@ App({
           db.collection('user').add({
             data: {
               openId: user.openId,
-              gold: 0,
+              gold: 100,
               packet: 0,
               topic: 0
             }
           }).then(()=>{
-            that.getAvatarUrl(user,avatarUrl)
+            callback()
+            // that.getAvatarUrl(user,avatarUrl)
           })
+        }else{
+          callback()
         }
       })
   },
@@ -130,9 +133,19 @@ App({
       success: res => {
         e.detail.userInfo.openid = res.result.event.userInfo.openId;
         that.globalData.userInfo = e.detail.userInfo;
-        callback()
         wx.setStorageSync('userInfo', e.detail.userInfo)
-        that.pushUserData(res.result.event.userInfo,e.detail.userInfo.avatarUrl)
+        that.pushUserData(res.result.event.userInfo, callback)
+        wx.setStorageSync('sum1', 1)
+        wx.setStorageSync('sum2', 1)
+        wx.setStorageSync('sum3', 1)
+        wx.setStorageSync('sum4', 1)
+        wx.setStorageSync('sum5', 1)
+
+        let startTime = new Date(new Date(new Date().toLocaleDateString()).getTime() + 24 * 60 * 60 * 1000 - 1)
+        // 当天0点
+        wx.setStorageSync('date', Date.parse(startTime))
+       
+
       }
     })
   },

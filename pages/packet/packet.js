@@ -9,13 +9,41 @@ Page({
    */
   data: {
     listData: [],
+    packet:0
   },
-
+//领取红发
+packet(e){
+  const that = this;
+  if(app.globalData.userInfo){
+    if(that.data.packet >=e.currentTarget.dataset.sum){
+      wx.showToast({
+        title: '兑换红包，请联系客服',
+        icon:'none',
+        duration: 2000
+      })
+    }else{
+      wx.showToast({
+        title: '您的红包余额不足',
+        icon:'none',
+        duration: 2000
+      })
+    }
+  }else{
+    wx.showToast({
+      title: '请先登录您的小程序',
+      icon:'none',
+      duration: 2000
+    })
+  }
+},
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     const that = this;
+    that.setData({
+      packet:options.packet
+    })
     that.getData()
   },
   getData() {

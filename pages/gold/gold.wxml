@@ -1,18 +1,21 @@
 <!--pages/gold/gold.wxml-->
-<view class="container" >
-<view class="gold">我的金币: {{gold}}</view>
+<view class="container">
+  <view class="gold">我的金币: {{gold}}</view>
   <view class="video animation" bindtap="toVideo">
     <image class="videoImg" src="../../images/video.png"></image>
     <view class="videoText">观看视频每次奖励100金币</view>
   </view>
-  <block wx:for='{{listData}}' wx:key='item'>
-    <view class="video" wx:if="{{item.show}}" data-wxid='{{item.wxId}}' data-num='{{item.num}}'  bindtap="toProgram">
-    <image class="videoImg" src="{{item.img}}"></image>
-    <view class="videoText">前往{{item.name}}小程序奖励{{item.num}}金币</view>
-  </view>
+  <block wx:for='{{listData}}' wx:key='item' wx:for-index='itemIndex'>
+    <view class="video {{lotteryNum[itemIndex]==0?'active':''}}" wx:if="{{item.show}}" data-wxid='{{item.wxId}}'
+      data-index='{{itemIndex}}' data-num='{{item.num}}' bindtap="toProgram">
+      <image class="videoImg" src="{{item.img}}"></image>
+      <image wx:if="{{lotteryNum[itemIndex]==0}}" class="no" src="../../images/no.png"></image>
+
+      <view class="videoText">前往{{item.name}}小程序奖励{{item.num}}金币</view>
+    </view>
   </block>
   <view class="bottom">
     <ad unit-id="adunit-cef0a0cf492e269c" ad-type="video" ad-theme="white"></ad>
-   
+
   </view>
 </view>

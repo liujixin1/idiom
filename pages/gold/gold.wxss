@@ -21,6 +21,7 @@ page {
   padding: 10rpx 20rpx;
   border-radius: 20rpx;
   margin-top: 20rpx;
+  position: relative;
 }
 .animation{
   animation: pulse infinite 1.5s;
@@ -50,4 +51,15 @@ page {
   position: fixed;
   left: 0rpx;
   bottom: 0rpx;
+}
+.active{
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+.no{
+  position: absolute;
+  width: 140rpx;
+  height: 140rpx;
+  top: 15rpx;
+  left: 19rpx;
+
 }

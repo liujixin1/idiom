@@ -155,7 +155,7 @@ Page({
   toPacket() {
     const that = this;
     wx.navigateTo({
-      url: `/pages/packet/packet?openId=${that.data.form.openId}`
+      url: `/pages/packet/packet?openId=${that.data.packet}`
     })
   },
   getData(openId) {

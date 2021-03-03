@@ -184,7 +184,7 @@ Page({
             if (res.confirm) {
               console.log('用户点击确定')
               wx.navigateTo({
-                url: `/pages/gold/gold`
+                url: `/pages/index/index`
               })
             } else if (res.cancel) {
               console.log('用户点击取消')
@@ -229,7 +229,7 @@ Page({
           })
           that.getGold(app.globalData.userInfo.openid)
         }
-      });
+      })
     }
   },
   getGold(openId) {

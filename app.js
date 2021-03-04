@@ -89,7 +89,6 @@ App({
         }).then(e => {
 
           let imgUrl = that.transitionImg(e.fileID)
-          console.log(imgUrl,99999)
           db.collection('user').where({openId:user.openId}).update({
             data: {
               avatarUrl:imgUrl

@@ -9,105 +9,105 @@ Page({
    */
   data: {
     swiperList: [{
-        img: '../../images/authorImg1.jpg',
-        text: '获得4.4元红包'
-      },
-      {
-        img: '../../images/authorImg2.jpg',
-        text: '获得4.4元红包'
-      },
-      {
-        img: '../../images/authorImg3.jpg',
-        text: '获得4.4元红包'
+        img: '../../images/authorImg8.jpg',
+        text: '获得0.23元红包'
       },
       {
         img: '../../images/authorImg4.jpg',
-        text: '获得4.4元红包'
+        text: '获得0.98元红包'
       },
       {
-        img: '../../images/authorImg5.jpg',
-        text: '获得4.4元红包'
+        img: '../../images/authorImg3.jpg',
+        text: '获得0.22元红包'
       },
       {
-        img: '../../images/authorImg6.jpg',
-        text: '获得4.4元红包'
+        img: '../../images/authorImg1.jpg',
+        text: '获得0.54元红包'
       },
       {
         img: '../../images/authorImg7.jpg',
-        text: '获得4.4元红包'
+        text: '获得0.26元红包'
       },
       {
-        img: '../../images/authorImg8.jpg',
-        text: '获得4.4元红包'
+        img: '../../images/authorImg2.jpg',
+        text: '获得0.75元红包'
       },
       {
-        img: '../../images/authorImg9.jpg',
-        text: '获得4.4元红包'
+        img: '../../images/authorImg6.jpg',
+        text: '获得0.38元红包'
       },
       {
         img: '../../images/authorImg10.jpg',
-        text: '获得4.4元红包'
+        text: '获得0.63元红包'
+      },
+      {
+        img: '../../images/authorImg9.jpg',
+        text: '获得0.59元红包'
+      },
+      {
+        img: '../../images/authorImg4.jpg',
+        text: '获得0.92元红包'
       },
 
     ],
     rankingList: [{
         mark: 1,
-        img: '../../images/authorImg1.jpg',
+        img: '../../images/ranking1.jpg',
         name: '闲聊',
         text: 5439
       },
       {
         mark: 2,
-        img: '../../images/authorImg2.jpg',
-        name: '闲聊',
+        img: '../../images/ranking2.jpg',
+        name: '西欧暧昧',
         text: 5124
       },
       {
         mark: 3,
-        img: '../../images/authorImg3.jpg',
-        name: '闲聊',
+        img: '../../images/ranking3.jpg',
+        name: '晓敏',
         text: 5034
       },
       {
         mark: 4,
-        img: '../../images/authorImg4.jpg',
-        name: '闲聊',
+        img: '../../images/ranking4.jpg',
+        name: '一心一意',
         text: 4931
       },
       {
         mark: 5,
-        img: '../../images/authorImg5.jpg',
-        name: '闲聊',
+        img: '../../images/ranking5.jpg',
+        name: '傲气一世',
         text: 4876
       },
       {
-        mark: 5,
-        img: '../../images/authorImg6.jpg',
-        name: '闲聊',
+        mark: 6,
+        img: '../../images/ranking6.jpg',
+        name: 'ˉ夨落旳尐孩',
         text: 4865
       },
       {
         mark: 7,
-        img: '../../images/authorImg7.jpg',
-        name: '闲聊',
+        img: '../../images/ranking7.jpg',
+        name: '残留の笑颜',
         text: 4804
       },
       {
         mark: 8,
-        img: '../../images/authorImg8.jpg',
-        name: '闲聊',
+        img: '../../images/ranking8.jpg',
+        name: '恋上香烟的火柴',
         text: 4777
       },
       {
         mark: 9,
-        img: '../../images/authorImg9.jpg',
-        name: '闲聊',
+        img: '../../images/ranking9.jpg',
+        name: '你的浓情蜜意',
         text: 4769
       },
       {
         mark: 10,
-        img: '../../images/authorImg10.jpg',
-        name: '闲聊',
+        img: '../../images/ranking10.jpg',
+        name: '一只失宠猫',
         text: 4755
       },
 
@@ -169,6 +169,7 @@ Page({
       })
       .get().then(res => {
         // wx.hideLoading()
+        res.data[0].packet = parseFloat(res.data[0].packet)
         that.setData({
           form: res.data[0]
         })
@@ -227,7 +228,6 @@ Page({
   onShow: function (options) {
     const that = this;
     if (app.globalData.userInfo) {
-      console.log(app.globalData.userInfo, 777)
       that.getData(app.globalData.userInfo.openid)
       that.setData({
         userInfo: app.globalData.userInfo

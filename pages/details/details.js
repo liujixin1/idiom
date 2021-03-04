@@ -20,13 +20,12 @@ Page({
     topic: 0,
     packetPrice: 0,
     packetSum: 0,
-    src: '../../images/packet.mp3'
+    // src: '../../images/packet.mp3'
   },
 
   open() {
     const that = this;
 
-    that.audioCtx.play()
     let index = that.data.listindex
     that.setPacket(parseFloat(that.data.dataCenter[index].sum))
     that.setData({
@@ -121,7 +120,7 @@ Page({
   setPacket(packet) {
     const that = this;
     const _ = db.command
-    let sum = (that.data.packetPrice + packet).toFixed(2)
+    let sum = (that.data.packetPrice + packet).toFixed(3)
     db.collection('user').where({
       openId: that.data.openId
     }).update({
@@ -292,8 +291,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.audioCtx = wx.createAudioContext('myAudio')
-    this.audioCtx.pause()
+   
   },
 
   /**

@@ -6,11 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
     swiperIndex: 0,
     listindex: 0,
     dataCenter: [],
-    type: 1,
     log: false,
     shade: false,
     login: false,
@@ -26,9 +24,8 @@ Page({
 
   open() {
     const that = this;
-
     let index = that.data.listindex
-    that.setPacket(parseFloat(that.data.dataCenter[index].sum))
+    that.setPacket(parseFloat(that.data.packetSum))
     that.setData({
       open: true
     })
@@ -51,30 +48,16 @@ Page({
       shade: false
     })
     if (that.data.swiperIndex == that.data.dataCenter.length - 1) {
-      let type = 1;
-      let packet = that.data.packetPrice;
-      if (packet <= 20) {
-        type = 1
-      } else if (packet > 20 && packet <= 25) {
-        type = 2
-      } else if (packet > 25 && packet <= 28) {
-        type = 3
-      } else if (packet > 28) {
-        type = 4
-      }
-      that.getDatas(type)
+      that.getDatas()
     }
   },
-  getData(type) {
+  getData() {
     const that = this;
     wx.showLoading({
       title: '加载中...'
     })
     const PAGE = 10;
-    db.collection('idiom').aggregate().match({
-        author: type
-      })
-      .sample({
+    db.collection('idiom').aggregate().sample({
         size: 5
       })
       .end().then(res => {
@@ -85,12 +68,10 @@ Page({
         })
       })
   },
-  getDatas(type) {
+  getDatas() {
     const that = this;
     const PAGE = 10;
-    db.collection('idiom').aggregate().match({
-        author: type
-      })
+    db.collection('idiom').aggregate()
       .sample({
         size: 5
       })
@@ -128,8 +109,7 @@ Page({
       data: {
         packet: _.set(sum),
       },
-      success: (() => {
-      })
+      success: (() => {})
     })
   },
   setTopic() {
@@ -146,21 +126,36 @@ Page({
       })
     })
   },
+  
   clickItem(e) {
     const that = this;
     if (that.data.log) {
-      if(that.data.gold >0){
+      if (that.data.gold > 0) {
         let listindex = e.currentTarget.dataset.listindex;
         let text = e.currentTarget.dataset.text;
         let bool = e.currentTarget.dataset.bool;
         that.setGold(5)
         if (bool) {
           let arrList = that.data.dataCenter[listindex].idiom;
+          let sum = 0
+          // console.log(sum,9999)
+          if (that.data.packetPrice <= 10) {
+            sum = (Math.random()*0.6).toFixed(2)
+          }else if (that.data.packetPrice > 10 && that.data.packetPrice <= 20) {
+            sum = (Math.random()*0.5).toFixed(2)
+          } else if (that.data.packetPrice > 20 && that.data.packetPrice <= 25) {
+            sum = (Math.random()*0.2).toFixed(2)
+          } else if (that.data.packetPrice > 25 && that.data.packetPrice <= 28) {
+            sum = (Math.random()*0.02).toFixed(2)
+          } else if (that.data.packetPrice > 28) {
+            sum = (Math.random()*0.004).toFixed(3)
+          }
+          console.log(sum, 999)
           arrList.forEach((res, index) => {
             if (res == "") {
               that.setData({
                 [`dataCenter[${listindex}].idiom[${index}]`]: text,
-                packetSum: that.data.dataCenter[listindex].sum,
+                packetSum: sum,
                 shade: true,
                 packet: true,
                 listindex: listindex
@@ -174,13 +169,13 @@ Page({
             duration: 1000
           })
         }
-      }else{
+      } else {
         wx.showModal({
           title: '温馨提示',
           content: '您的金币不足，请返回小程序首页，获取更多金币',
-          confirmText:'我知道了',
-          confirmColor:'#F56C6C',
-          success (res) {
+          confirmText: '我知道了',
+          confirmColor: '#F56C6C',
+          success(res) {
             if (res.confirm) {
               console.log('用户点击确定')
               wx.navigateTo({
@@ -192,8 +187,6 @@ Page({
           }
         })
       }
-
-      
     } else {
       that.setData({
         shade: true,
@@ -255,29 +248,15 @@ Page({
    */
   onLoad: function (options) {
     const that = this;
-    let type = 1;
-    if (options.packet <= 20) {
-      type = 1
-    } else if (options.packet > 20 && options.packet <= 25) {
-      type = 2
-    } else if (options.packet > 25 && options.packet <= 28) {
-      type = 3
-    } else if (options.packet > 28) {
-      type = 4
-    }
     if (app.globalData.userInfo) {
-
-      that.getData(type)
+      that.getData()
       that.getGold(app.globalData.userInfo.openid)
-
       that.setData({
-     
         log: true
       })
     } else {
-      that.getData(type)
+      that.getData()
       that.setData({
-      
         log: false
       })
     }
@@ -292,7 +271,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-   
+
   },
 
   /**
@@ -333,11 +312,11 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    const that = this;
-    return {
-      title: that.data.dataCenter.name,
-      imageUrl: that.data.dataCenter.img
-    }
-  }
+  // onShareAppMessage: function () {
+  //   const that = this;
+  //   return {
+  //     title: that.data.dataCenter.name,
+  //     imageUrl: that.data.dataCenter.img
+  //   }
+  // }
 })

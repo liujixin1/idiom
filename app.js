@@ -127,9 +127,13 @@ App({
    */
   login(e, callback) {
     const that = this;
+    wx.showLoading({
+      title: '加载中...',
+    })
     wx.cloud.callFunction({
       name: 'login',
       success: res => {
+        wx.hideLoading() 
         e.detail.userInfo.openid = res.result.event.userInfo.openId;
         that.globalData.userInfo = e.detail.userInfo;
         wx.setStorageSync('userInfo', e.detail.userInfo)

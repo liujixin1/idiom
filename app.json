@@ -15,7 +15,7 @@
     "backgroundTextStyle": "light",
     "navigationStyle": "default",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "成语",
+    "navigationBarTitleText": "成语街",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json"

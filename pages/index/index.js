@@ -54,61 +54,61 @@ Page({
         mark: 1,
         img: '../../images/ranking1.jpg',
         name: '闲聊',
-        text: 5439
+        text: 2439
       },
       {
         mark: 2,
         img: '../../images/ranking2.jpg',
         name: '西欧暧昧',
-        text: 5124
+        text: 2256
       },
       {
         mark: 3,
         img: '../../images/ranking3.jpg',
         name: '晓敏',
-        text: 5034
+        text: 2187
       },
       {
         mark: 4,
         img: '../../images/ranking4.jpg',
         name: '一心一意',
-        text: 4931
+        text: 2154
       },
       {
         mark: 5,
         img: '../../images/ranking5.jpg',
         name: '傲气一世',
-        text: 4876
+        text: 2067
       },
       {
         mark: 6,
         img: '../../images/ranking6.jpg',
         name: 'ˉ夨落旳尐孩',
-        text: 4865
+        text: 2012
       },
       {
         mark: 7,
         img: '../../images/ranking7.jpg',
         name: '残留の笑颜',
-        text: 4804
+        text: 1976
       },
       {
         mark: 8,
         img: '../../images/ranking8.jpg',
         name: '恋上香烟的火柴',
-        text: 4777
+        text: 1823
       },
       {
         mark: 9,
         img: '../../images/ranking9.jpg',
         name: '你的浓情蜜意',
-        text: 4769
+        text: 1814
       },
       {
         mark: 10,
         img: '../../images/ranking10.jpg',
         name: '一只失宠猫',
-        text: 4755
+        text: 1807
       },
 
     ],

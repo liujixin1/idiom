@@ -259,8 +259,8 @@ overflow: hidden;
   position: relative;
 }
 .packet .packetErr{
-width: 70rpx;
-height: 70rpx;
+width: 90rpx;
+height: 90rpx;
 display: block;
 margin: 0 auto;
 margin-top: 50rpx;
@@ -325,7 +325,7 @@ margin-top: 50rpx;
 }
 .next .congratulation{
   text-align: center;
-  font-size: 26rpx;
+  font-size: 28rpx;
   font-weight: bold;
   margin-bottom: 20rpx;
 }
@@ -335,8 +335,8 @@ margin-top: 50rpx;
   margin-bottom: 20rpx;
 }
 .next .nextBtn{
-  height: 60rpx;
-  line-height: 60rpx;
+  height: 70rpx;
+  line-height: 70rpx;
   margin: 0 auto;
   margin-top: 40rpx;
   padding: 0 50rpx;
@@ -345,7 +345,7 @@ margin-top: 50rpx;
   text-align: center;
   z-index: 10;
   background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
-  border-radius: 30rpx;
+  border-radius: 35rpx;
   animation: pulse infinite 1.5s;
   color: #fff;
   font-weight: bold;
